@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+           xmlns="http://univrouen.fr/rss22"
+           targetNamespace="http://univrouen.fr/rss22"
+           elementFormDefault="unqualified" >
+
+    <xs:element name="xml" />
+    <xs:element name="feed" type="Feed"/>
+    <xs:complexType name="Feed">
+        <xs:sequence>
+            <xs:element name="title"  type="longMax128" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="pubDate"  type="xs:date" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="copyright"  type="longMax128" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="link"  type="Link" minOccurs="1" maxOccurs="unbounded"/>
+            <xs:element name="item" type = "Item" minOccurs="1" maxOccurs="10"/>
+        </xs:sequence>
+        <xs:attribute name ="lang" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Link">
+        <xs:attribute name = "rel" type="Rel" use="required"/>
+        <xs:attribute name = "type" type="xs:string" use="required"/>
+        <xs:attribute name = "href" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="Rel">
+        <xs:restriction base = "xs:string">
+            <xs:enumeration value="self"/>
+            <xs:enumeration value="alternance"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="longMax128">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="128"></xs:maxLength>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Item">
+        <xs:sequence>
+            <xs:element name="guid" type="URL" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="title" type="longMax128" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="category" type="Term" minOccurs="1" maxOccurs="unbounded" ></xs:element>
+            <xs:element name="published" type="xs:date" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="image" type="Image" minOccurs="0" maxOccurs="1"></xs:element>
+            <xs:element name="content" type="Content" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="author" type="Author" minOccurs="1" maxOccurs="unbounded"></xs:element>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="Term">
+        <xs:restriction base="xs:string"/>
+    </xs:simpleType>
+
+    <xs:complexType name="Image">
+        <xs:attribute name = "type" type="imgType" use="required"/>
+        <xs:attribute name = "href" type="xs:string" use="required"/>
+        <xs:attribute name = "alt" type="xs:string" use="required"/>
+        <xs:attribute name = "length" type="xs:int" use="required"/>
+    </xs:complexType>
+
+    <xs:simpleType name="imgType">
+        <xs:restriction base="xs:string">
+            <xs:enumeration value="JPEG"/>
+            <xs:enumeration value="JPG"/>
+            <xs:enumeration value="PNG"/>
+            <xs:enumeration value="GIF"/>
+            <xs:enumeration value="BMP"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:complexType name="Content">
+        <xs:attribute name = "type" type="tType" use="required"/>
+        <xs:attribute name = "href" type="xs:string" use="required"/>
+    </xs:complexType>
+
+    <xs:complexType name="Author">
+        <xs:sequence>
+            <xs:element name = "name" type="longMax64"  minOccurs="1" maxOccurs="1"/>
+            <xs:element name = "email" type="Email" minOccurs="0" maxOccurs="1"/>
+            <xs:element name = "uri" type="URL" minOccurs="0" maxOccurs="1"/>
+        </xs:sequence>
+    </xs:complexType>
+
+    <xs:simpleType name="URL">
+        <xs:restriction base="xs:anyURI">
+            <xs:pattern value='https?://.+'/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="longMax64">
+        <xs:restriction base="xs:string">
+            <xs:maxLength value="64"></xs:maxLength>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="tType">
+        <xs:restriction base = "xs:string">
+            <xs:enumeration value="text"/>
+            <xs:enumeration value="src"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+    <xs:simpleType name="Email">
+        <xs:restriction base="xs:string">
+            <xs:pattern value="[^@]+@[^\.]+\..+"/>
+        </xs:restriction>
+    </xs:simpleType>
+
+</xs:schema>
