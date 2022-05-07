@@ -9,7 +9,7 @@
     <xs:complexType name="Feed">
         <xs:sequence>
             <xs:element name="title"  type="longMax128" minOccurs="1" maxOccurs="1"/>
-            <xs:element name="pubDate"  type="xs:date" minOccurs="1" maxOccurs="1"/>
+            <xs:element name="pubDate"  type="xs:dateTime" minOccurs="1" maxOccurs="1"/>
             <xs:element name="copyright"  type="longMax128" minOccurs="1" maxOccurs="1"/>
             <xs:element name="link"  type="Link" minOccurs="1" maxOccurs="unbounded"/>
             <xs:element name="item" type = "Item" minOccurs="1" maxOccurs="10"/>
@@ -38,10 +38,10 @@
 
     <xs:complexType name="Item">
         <xs:sequence>
-            <xs:element name="guid" type="URL" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="guid" minOccurs="1" maxOccurs="1"></xs:element>
             <xs:element name="title" type="longMax128" minOccurs="1" maxOccurs="1"></xs:element>
             <xs:element name="category" type="Term" minOccurs="1" maxOccurs="unbounded" ></xs:element>
-            <xs:element name="published" type="xs:date" minOccurs="1" maxOccurs="1"></xs:element>
+            <xs:element name="published" type="xs:dateTime" minOccurs="1" maxOccurs="1"></xs:element>
             <xs:element name="image" type="Image" minOccurs="0" maxOccurs="1"></xs:element>
             <xs:element name="content" type="Content" minOccurs="1" maxOccurs="1"></xs:element>
             <xs:element name="author" type="Author" minOccurs="1" maxOccurs="unbounded"></xs:element>

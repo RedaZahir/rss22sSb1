@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBElement;
@@ -35,6 +36,7 @@ public class ItemController {
     @Autowired
     private AService aService;
 
+
     @GetMapping(value = "/rss/resume/xml",produces = MediaType.APPLICATION_XML_VALUE)
     public List<Item> getXMLItems(){
         return itemRepository.findAll();
@@ -50,8 +52,19 @@ public class ItemController {
 
         String out=flux.replaceAll("rss:","");
 
-        if(aService.valid(file,out)){
+        StringBuilder xml = new StringBuilder("");
+        xml.append("<rss:feed lang=\"ar-AR\" xmlns:rss=\"http://univrouen.fr/rss22\">\n" +
+                "  <title>string</title>\n" +
+                "  <pubDate>2008-09-09T03:49:45</pubDate>\n" +
+                "  <copyright>string</copyright>\n" +
+                "  <!--1 or more repetitions:-->\n" +
+                "  <link rel=\"self\" type=\"string\" href=\"string\"/>");
+        xml.append(flux);
+        xml.append("</rss:feed>");
 
+        String rss = xml.toString();
+
+        if(aService.valid(rss)){
             JAXBContext jaxbContext=JAXBContext.newInstance(Item.class);
             Unmarshaller unmarshaller=jaxbContext.createUnmarshaller();
 

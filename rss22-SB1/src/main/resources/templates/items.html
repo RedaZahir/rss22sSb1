@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="https://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8" content="text/html" http-equiv="Content-Type"/>
+    <title>Articles</title>
+</head>
+<body>
+<h2>Articles</h2>
+<div>
+    <h3><a href="http://localhost:8080/accueil">RETOUR à L'ACCUEIL</a></h3>
+</div>
+<div>
+    <h3><a href="http://localhost:8080/documentation">DOCUMENTATION</a></h3>
+</div>
+<table>
+    <thead>
+        <ul>
+            <li> Guid : </li>
+            <li> Titre : </li>
+            <li> Date de publication : </li>
+        </ul>
+    </thead>
+    <tbody>
+    <!--<tr th:if="${articles.empty}">
+        <p> Aucun article n'est disponible. </p>
+    </tr>-->
+    <p> Aucun article n'est disponible. </p>
+    <!--<tr th:each="article : ${articles}">
+        <td><p th:text="${article.guid}"></p></td>
+        <td><p th:text="${article.title}"></p></td>
+        <td><p th:text="${article.published}"></p></td>
+    </tr>-->
+    </tbody>
+</table>
+</body>
+</html>
